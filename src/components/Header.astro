@@ -1,0 +1,56 @@
+---
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/about/', label: 'About' },
+  { href: '/board/', label: 'Board' },
+  { href: '/community/', label: 'Community' },
+  { href: '/training-providers/', label: 'Training' },
+  { href: '/resources/', label: 'Resources' },
+  { href: '/contact/', label: 'Contact' },
+];
+
+const path = Astro.url.pathname;
+const isActive = (href: string): boolean =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<div class="util-bar">
+  <div class="container util-inner">
+    <a href="mailto:membership@dama.org.za">membership@dama.org.za</a>
+    <a href="https://za.linkedin.com/company/damasouthernafrica" rel="noopener" target="_blank">LinkedIn</a>
+    <a href="https://www.meetup.com/dama-sa-data-management-meetup/" rel="noopener" target="_blank">Meetup</a>
+    <a href="https://www.youtube.com/playlist?list=PLkMLJQh0GPJOVoJJ3JoQdu7iQdTXfaqvR" rel="noopener" target="_blank">YouTube</a>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label="DAMA South Africa — home">
+      <img src="/logo.png" alt="DAMA South Africa" width="72" height="52" />
+      <span class="brand-name">
+        DAMA South Africa
+        <span>Data Management Association</span>
+      </span>
+    </a>
+
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" />
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </label>
+
+    <nav class="site-nav" aria-label="Primary">
+      {
+        links.map((link) => (
+          <a
+            href={link.href}
+            class:list={['nav-link', { active: isActive(link.href) }]}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        ))
+      }
+      <a class="nav-cta" href="/become-a-member/">Become a Member</a>
+    </nav>
+  </div>
+</header>
